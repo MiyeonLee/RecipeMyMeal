@@ -47,6 +47,14 @@ public class RecipeTextAdapter extends BaseAdapter {
 
         TextView txt = (TextView)convertView.findViewById(R.id.recipename);
         txt.setText(arrayRecipe.get(position).Name);
+
+
+        txt.setOnClickListener(new CheckBox.OnClickListener() {
+            public void onClick(View v) {
+                // TODO: list selected notified to activity and change fragment to show detailed recipe
+            }
+        });
+
         return convertView;
     }
 }
