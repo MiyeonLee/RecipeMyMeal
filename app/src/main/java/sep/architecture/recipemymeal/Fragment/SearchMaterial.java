@@ -66,8 +66,9 @@ public class SearchMaterial extends Fragment {
 
         //-------------------------------------
         Material materialData;
-        for(int i = 0; i < 24; i++)
+        for(int i = 0; i < 24; i++) // TODO: total number of materials from database
         {
+            // TODO: name, url from database
             materialData = new Material(R.drawable.material01 + i, (String) ("Material" + i), "https://portasilo.com/portasilo/wp-content/uploads/sites/7/2015/02/icon-food.png");
             materialList.add(materialData);
         }
@@ -101,8 +102,9 @@ public class SearchMaterial extends Fragment {
 
         //-------------------------------------
         Tool toolData;
-        for(int i = 0; i < 5; i++)
+        for(int i = 0; i < 5; i++) // TODO: total number of tools from database
         {
+            // TODO: name, url from database
             toolData = new Tool(R.drawable.material01 + i, (String) ("Tool" + i), "http://www.cuisines-kocher-metz.fr/images/icon-pan.png");
             toolList.add(toolData);
         }
@@ -145,7 +147,6 @@ public class SearchMaterial extends Fragment {
                 mCallback.onNameSelected();
             }
         });
-
         search.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // TODO: clickbox check routine

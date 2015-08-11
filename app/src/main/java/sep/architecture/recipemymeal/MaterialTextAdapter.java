@@ -1,6 +1,7 @@
 package sep.architecture.recipemymeal;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,7 +75,7 @@ public class MaterialTextAdapter extends BaseAdapter {
         ImageView img = (ImageView) convertView.findViewById(R.id.thumbnail);
         if(arrayMaterial.get(position).Url != null) {
             DownloadImage task = new DownloadImage(img);
-            task.execute(new String[]{arrayMaterial.get(position).Url});
+            task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, new String[]{arrayMaterial.get(position).Url});
         }else{
             img.setImageResource(arrayMaterial.get(position).Image);
         }
