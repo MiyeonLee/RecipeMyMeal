@@ -21,21 +21,29 @@
         android:layout_alignParentStart="true"
         android:focusable="false" />
 
+    <ListView
+        android:id="@+id/materialList"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_name">
+    </ListView>
+
+    <ListView
+        android:id="@+id/toolList"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_name"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+    </ListView>
+
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Search"
         android:id="@+id/btn_searchbyname"
-        android:layout_below="@+id/btn_name"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <ListView
-        android:id="@+id/materialList"
-        android:layout_width="270dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_name">
-
-    </ListView>
+        android:layout_alignTop="@+id/btn_name"
+        android:layout_alignRight="@+id/toolList"
+        android:layout_alignEnd="@+id/toolList" />
 </RelativeLayout>

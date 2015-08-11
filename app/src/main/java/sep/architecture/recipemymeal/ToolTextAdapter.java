@@ -19,26 +19,26 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 
-public class MaterialTextAdapter extends BaseAdapter {
+public class ToolTextAdapter extends BaseAdapter {
     Context mContext;
     LayoutInflater inflater;
-    ArrayList<Material> arrayMaterial;
+    ArrayList<Tool> arrayTool;
     int numberOfCheckedItem;
     int layout;
 
-    public MaterialTextAdapter(Context context, int iLayout, ArrayList<Material> array){
+    public ToolTextAdapter(Context context, int iLayout, ArrayList<Tool> array){
         mContext = context;
         inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        arrayMaterial = array;
+        arrayTool = array;
         layout = iLayout;
     }
 
     public int getCount(){
-        return arrayMaterial.size();
+        return arrayTool.size();
     }
 
     public Object getItem(int position){
-        return arrayMaterial.get(position).Name;
+        return arrayTool.get(position).Name;
     }
 
     public long getItemId(int position){
@@ -46,11 +46,11 @@ public class MaterialTextAdapter extends BaseAdapter {
     }
 
     public boolean getCheckBoxState(int position){
-        return arrayMaterial.get(position).getCheckBoxState();
+        return arrayTool.get(position).getCheckBoxState();
     }
 
     public void setCheckBoxState(int position, boolean state){
-        arrayMaterial.get(position).setCheckBoxState(state);
+        arrayTool.get(position).setCheckBoxState(state);
         if(state) {
             addNumberOfCheckedItem(true);
         }else{
@@ -60,7 +60,7 @@ public class MaterialTextAdapter extends BaseAdapter {
 
     public void addNumberOfCheckedItem(boolean add){
         if(add){
-            if(numberOfCheckedItem < 10) {
+            if(numberOfCheckedItem < 1) {
                 numberOfCheckedItem++;
             }
         }else{
@@ -79,32 +79,22 @@ public class MaterialTextAdapter extends BaseAdapter {
             convertView = inflater.inflate(layout, parent, false);
         }
 
-        ImageView img = (ImageView) convertView.findViewById(R.id.thumbnail);
-        if(arrayMaterial.get(position).Url != null) {
+        ImageView img = (ImageView) convertView.findViewById(R.id.thumbnail_tool);
+        if(arrayTool.get(position).Url != null) {
             DownloadImage task = new DownloadImage(img);
-            task.execute(new String[]{arrayMaterial.get(position).Url});
+            task.execute(new String[]{arrayTool.get(position).Url});
         }else{
-            img.setImageResource(arrayMaterial.get(position).Image);
+            img.setImageResource(arrayTool.get(position).Image);
         }
 
-        TextView txt = (TextView)convertView.findViewById(R.id.recipename);
-        txt.setText(arrayMaterial.get(position).Name);
+        TextView txt = (TextView)convertView.findViewById(R.id.toolname);
+        txt.setText(arrayTool.get(position).Name);
 
-        CheckBox cbBox = (CheckBox)convertView.findViewById(R.id.cb_recipe);
+        CheckBox cbBox = (CheckBox)convertView.findViewById(R.id.cb_tool);
         cbBox.setClickable(false);
         cbBox.setFocusable(false);
-        cbBox.setChecked(arrayMaterial.get(position).getCheckBoxState());
-        /*
-        cbBox.setOnClickListener(new CheckBox.OnClickListener() {
-            public void onClick(View v) {
-                if (arrayMaterial.get(position).getCheckBoxState()) {
-                        arrayMaterial.get(position).setCheckBoxState(false);
-                } else {
-                    arrayMaterial.get(position).setCheckBoxState(true);
-                }
-            }
-        });
-        */
+        cbBox.setChecked(arrayTool.get(position).getCheckBoxState());
+
         return convertView;
     }
 }

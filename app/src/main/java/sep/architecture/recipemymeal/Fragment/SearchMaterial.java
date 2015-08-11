@@ -16,8 +16,8 @@ import java.util.ArrayList;
 import sep.architecture.recipemymeal.Material;
 import sep.architecture.recipemymeal.MaterialTextAdapter;
 import sep.architecture.recipemymeal.R;
-
-
+import sep.architecture.recipemymeal.Tool;
+import sep.architecture.recipemymeal.ToolTextAdapter;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -29,6 +29,7 @@ public class SearchMaterial extends Fragment {
     Button search;
 
     ArrayList<Material> materialList;
+    ArrayList<Tool>toolList;
 
     Context mContext;
 
@@ -61,7 +62,9 @@ public class SearchMaterial extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_searchmaterial, container, false);
 
         materialList = new ArrayList<Material>();
+        toolList = new ArrayList<Tool>();
 
+        //-------------------------------------
         Material materialData;
         for(int i = 0; i < 24; i++)
         {
@@ -69,16 +72,51 @@ public class SearchMaterial extends Fragment {
             materialList.add(materialData);
         }
 
-        final MaterialTextAdapter adapter = new MaterialTextAdapter(mContext, R.layout.material_item, materialList);
+        final MaterialTextAdapter materialAdapter = new MaterialTextAdapter(mContext, R.layout.material_item, materialList);
+
+        ListView materialList;
+        materialList = (ListView)rootView.findViewById(R.id.materialList);
+        materialList.setAdapter(materialAdapter);
+
+        materialList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(materialAdapter.getNumberOfCheckedItem() == 10) {
+                    if (materialAdapter.getCheckBoxState(position)) {
+                        materialAdapter.setCheckBoxState(position, false);
+                    } else {
+                        // not possible
+                    }
+                }else {
+                    if (materialAdapter.getCheckBoxState(position)) {
+                        materialAdapter.setCheckBoxState(position, false);
+                    } else {
+                        materialAdapter.setCheckBoxState(position, true);
+                    }
+                }
+                materialAdapter.getView(position, view, parent);
+            }
+        });
+        //-------------------------------------
+
+        //-------------------------------------
+        Tool toolData;
+        for(int i = 0; i < 5; i++)
+        {
+            toolData = new Tool(R.drawable.material01 + i, (String) ("Tool" + i), "http://www.cuisines-kocher-metz.fr/images/icon-pan.png");
+            toolList.add(toolData);
+        }
+
+        final ToolTextAdapter adapter = new ToolTextAdapter(mContext, R.layout.tool_item, toolList);
 
         ListView list;
-        list = (ListView)rootView.findViewById(R.id.materialList);
+        list = (ListView)rootView.findViewById(R.id.toolList);
         list.setAdapter(adapter);
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(adapter.getNumberOfCheckedItem() == 10) {
+                if(adapter.getNumberOfCheckedItem() == 1) {
                     if (adapter.getCheckBoxState(position)) {
                         adapter.setCheckBoxState(position, false);
                     } else {
@@ -94,6 +132,7 @@ public class SearchMaterial extends Fragment {
                 adapter.getView(position, view, parent);
             }
         });
+        //-------------------------------------
 
         // buttons
         name = (Button)rootView.findViewById(R.id.btn_name);
