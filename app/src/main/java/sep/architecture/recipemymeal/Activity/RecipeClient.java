@@ -11,6 +11,7 @@ import sep.architecture.recipemymeal.Fragment.ResultList;
 import sep.architecture.recipemymeal.R;
 import sep.architecture.recipemymeal.Fragment.SearchMaterial;
 import sep.architecture.recipemymeal.Fragment.SearchName;
+import sep.architecture.recipemymeal.Recipe;
 import sep.architecture.recipemymeal.Service.ClientManager;                 // Refer to Architecture Design
 
 public class RecipeClient extends ActionBarActivity
@@ -119,8 +120,8 @@ public class RecipeClient extends ActionBarActivity
         transaction.commit();
     }
 
-    public void onListItemSelected(){
-        ResultDetail newFragment = new ResultDetail();
+    public void onListItemSelected(Recipe selectedRecipe){
+        ResultDetail newFragment = new ResultDetail(selectedRecipe);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 

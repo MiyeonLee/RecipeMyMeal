@@ -8,4 +8,6 @@ public class Recipe{
         Image = aIcon;
         Name = aName;
     }
+
+    public String getName(){ return Name; }
 }

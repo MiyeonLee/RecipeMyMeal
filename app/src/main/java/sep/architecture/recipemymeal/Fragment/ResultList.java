@@ -29,7 +29,7 @@ public class ResultList extends Fragment {
     }
 
     public interface OnResultListSelectedListener {
-        public void onListItemSelected();
+        public void onListItemSelected(Recipe selectedRecipe);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class ResultList extends Fragment {
             recipeList.add(recipeData);
         }
 
-        RecipeTextAdapter adapter = new RecipeTextAdapter(mContext, R.layout.recipe_item, recipeList);
+        final RecipeTextAdapter adapter = new RecipeTextAdapter(mContext, R.layout.recipe_item, recipeList);
 
         ListView list;
         list = (ListView)rootView.findViewById(R.id.resultlist);
@@ -70,7 +70,7 @@ public class ResultList extends Fragment {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mCallback.onListItemSelected();
+                mCallback.onListItemSelected(adapter.getRecipe(position));
             }
         });
 

@@ -33,6 +33,8 @@ public class RecipeTextAdapter extends BaseAdapter {
         return arrayRecipe.get(position).Name;
     }
 
+    public Recipe getRecipe(int position) {return arrayRecipe.get(position);}
+
     public long getItemId(int position){
         return position;
     }
