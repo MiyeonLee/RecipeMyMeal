@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import sep.architecture.recipemymeal.Fragment.ResultDetail;
 import sep.architecture.recipemymeal.Fragment.ResultList;
 import sep.architecture.recipemymeal.R;
 import sep.architecture.recipemymeal.Fragment.SearchMaterial;
@@ -13,7 +14,10 @@ import sep.architecture.recipemymeal.Fragment.SearchName;
 
 
 public class RecipeClient extends ActionBarActivity
-        implements SearchMaterial.OnMainActivityFragmentSelectedListener, SearchName.OnMainActivityFragment3SelectedListener {
+        implements SearchMaterial.OnSearchMaterialFragmentSelectedListener,
+                    SearchName.OnSearchNameSelectedListener,
+                    ResultList.OnResultListSelectedListener,
+                    ResultDetail.OnResultDetailFragmentSelectedListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +113,34 @@ public class RecipeClient extends ActionBarActivity
         // Replace whatever is in the fragment_container view with this fragment,
         // and add the transaction to the back stack so the user can navigate back
         transaction.replace(R.id.fragment_container, newFragment);
+        transaction.addToBackStack(null);
+
+        // Commit the transaction
+        transaction.commit();
+    }
+
+    public void onListItemSelected(){
+        ResultDetail newFragment = new ResultDetail();
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack so the user can navigate back
+        transaction.replace(R.id.fragment_container2, newFragment);
+        transaction.addToBackStack(null);
+
+        // Commit the transaction
+        transaction.commit();
+    }
+
+    public void onBackSelected(){
+        ResultList newFragment = new ResultList();
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack so the user can navigate back
+        transaction.replace(R.id.fragment_container2, newFragment);
         transaction.addToBackStack(null);
 
         // Commit the transaction

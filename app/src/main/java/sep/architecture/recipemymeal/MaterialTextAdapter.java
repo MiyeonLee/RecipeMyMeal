@@ -52,13 +52,13 @@ public class MaterialTextAdapter extends BaseAdapter {
     public void setCheckBoxState(int position, boolean state){
         arrayMaterial.get(position).setCheckBoxState(state);
         if(state) {
-            setNumberOfCheckedItem(true);
+            addNumberOfCheckedItem(true);
         }else{
-            setNumberOfCheckedItem(false);
+            addNumberOfCheckedItem(false);
         }
     }
 
-    public void setNumberOfCheckedItem(boolean add){
+    public void addNumberOfCheckedItem(boolean add){
         if(add){
             if(numberOfCheckedItem < 10) {
                 numberOfCheckedItem++;

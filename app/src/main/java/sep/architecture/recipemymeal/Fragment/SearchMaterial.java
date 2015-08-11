@@ -23,7 +23,7 @@ import sep.architecture.recipemymeal.R;
  * A placeholder fragment containing a simple view.
  */
 public class SearchMaterial extends Fragment {
-    OnMainActivityFragmentSelectedListener mCallback;
+    OnSearchMaterialFragmentSelectedListener mCallback;
 
     Button name;
     Button search;
@@ -36,7 +36,7 @@ public class SearchMaterial extends Fragment {
     public SearchMaterial() {
     }
 
-    public interface OnMainActivityFragmentSelectedListener {
+    public interface OnSearchMaterialFragmentSelectedListener {
         public void onNameSelected();
     }
 
@@ -48,10 +48,10 @@ public class SearchMaterial extends Fragment {
         // This makes sure that the container activity has implemented
         // the callback interface. If not, it throws an exception
         try {
-            mCallback = (OnMainActivityFragmentSelectedListener) activity;
+            mCallback = (OnSearchMaterialFragmentSelectedListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement OnMainActivityFragmentSelectedListener");
+                    + " must implement OnSearchMaterialFragmentSelectedListener");
         }
     }
 

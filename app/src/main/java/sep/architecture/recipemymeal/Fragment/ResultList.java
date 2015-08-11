@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -25,6 +26,7 @@ import sep.architecture.recipemymeal.RecipeTextAdapter;
  * A placeholder fragment containing a simple view.
  */
 public class ResultList extends Fragment {
+    OnResultListSelectedListener mCallback;
     Context mContext;
 
     ArrayList<Recipe> recipeList;
@@ -32,10 +34,23 @@ public class ResultList extends Fragment {
     public ResultList() {
     }
 
+    public interface OnResultListSelectedListener {
+        public void onListItemSelected();
+    }
+
     @Override
     public void onAttach(Activity activity){
         super.onAttach(activity);
         mContext = (Context)activity;
+
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            mCallback = (OnResultListSelectedListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnResultListSelectedListener");
+        }
     }
 
     @Override
@@ -57,6 +72,13 @@ public class ResultList extends Fragment {
         ListView list;
         list = (ListView)rootView.findViewById(R.id.resultlist);
         list.setAdapter(adapter);
+
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mCallback.onListItemSelected();
+            }
+        });
 
         return rootView;
     }
