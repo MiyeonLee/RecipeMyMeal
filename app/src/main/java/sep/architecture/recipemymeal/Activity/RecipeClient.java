@@ -11,7 +11,7 @@ import sep.architecture.recipemymeal.Fragment.ResultList;
 import sep.architecture.recipemymeal.R;
 import sep.architecture.recipemymeal.Fragment.SearchMaterial;
 import sep.architecture.recipemymeal.Fragment.SearchName;
-
+import sep.architecture.recipemymeal.Service.ClientManager;                 // Refer to Architecture Design
 
 public class RecipeClient extends ActionBarActivity
         implements SearchMaterial.OnSearchMaterialFragmentSelectedListener,

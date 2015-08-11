@@ -25,10 +25,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/edit_message"
-        android:layout_marginTop="44dp"
-        android:layout_below="@+id/btn_material"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignBottom="@+id/btn_material"
+        android:layout_toRightOf="@+id/btn_material"
+        android:layout_toEndOf="@+id/btn_material" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -36,7 +35,7 @@
         android:layout_height="wrap_content"
         android:text="Search"
         android:id="@+id/btn_searchbymaterial"
-        android:layout_alignTop="@+id/edit_message"
+        android:layout_alignTop="@+id/btn_material"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
