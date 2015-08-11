@@ -12,7 +12,7 @@ import sep.architecture.recipemymeal.Fragment.SearchMaterial;
 import sep.architecture.recipemymeal.Fragment.SearchName;
 
 
-public class MainActivity extends ActionBarActivity
+public class RecipeClient extends ActionBarActivity
         implements SearchMaterial.OnMainActivityFragmentSelectedListener, SearchName.OnMainActivityFragment3SelectedListener {
 
     @Override

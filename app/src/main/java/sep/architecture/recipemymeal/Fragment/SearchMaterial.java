@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -15,6 +16,8 @@ import java.util.ArrayList;
 import sep.architecture.recipemymeal.Material;
 import sep.architecture.recipemymeal.MaterialTextAdapter;
 import sep.architecture.recipemymeal.R;
+
+
 
 /**
  * A placeholder fragment containing a simple view.
@@ -62,15 +65,35 @@ public class SearchMaterial extends Fragment {
         Material materialData;
         for(int i = 0; i < 24; i++)
         {
-            materialData = new Material(R.drawable.material01+i, (String)("Material" + i));
+            materialData = new Material(R.drawable.material01 + i, (String) ("Material" + i), "https://portasilo.com/portasilo/wp-content/uploads/sites/7/2015/02/icon-food.png");
             materialList.add(materialData);
         }
 
-        MaterialTextAdapter adapter = new MaterialTextAdapter(mContext, R.layout.material_item, materialList);
+        final MaterialTextAdapter adapter = new MaterialTextAdapter(mContext, R.layout.material_item, materialList);
 
         ListView list;
         list = (ListView)rootView.findViewById(R.id.materialList);
         list.setAdapter(adapter);
+
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(adapter.getNumberOfCheckedItem() == 10) {
+                    if (adapter.getCheckBoxState(position)) {
+                        adapter.setCheckBoxState(position, false);
+                    } else {
+                        // not possible
+                    }
+                }else {
+                    if (adapter.getCheckBoxState(position)) {
+                        adapter.setCheckBoxState(position, false);
+                    } else {
+                        adapter.setCheckBoxState(position, true);
+                    }
+                }
+                adapter.getView(position, view, parent);
+            }
+        });
 
         // buttons
         name = (Button)rootView.findViewById(R.id.btn_name);
