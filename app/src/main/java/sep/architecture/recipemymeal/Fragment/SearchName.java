@@ -35,7 +35,7 @@ public class SearchName extends Fragment {
 
     public interface OnSearchNameSelectedListener {
         public void onMaterialSelected();
-        public void onNameSearchResult();
+        public void onNameSearchResult(ArrayList<Recipe> r);
     }
 
     @Override
@@ -99,7 +99,7 @@ public class SearchName extends Fragment {
             for(int i=0; i < r.size(); i++) {
                 Log.d("Sync", r.get(i).getName());
             }
-            mCallback.onNameSearchResult();
+            mCallback.onNameSearchResult(r);
         }
     }
 }

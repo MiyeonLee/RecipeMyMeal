@@ -2,8 +2,10 @@ package sep.architecture.recipemymeal.Fragment;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +32,9 @@ public class SearchMaterial extends Fragment {
     Button name;
     Button search;
 
+    SearchMaterialAsyncTask searchMaterialAsyncTask;
+    ArrayList<Recipe> result;
+
     ArrayList<Material> materialList;
     ArrayList<Tool>toolList;
 
@@ -41,7 +46,7 @@ public class SearchMaterial extends Fragment {
 
     public interface OnSearchMaterialFragmentSelectedListener {
         public void onNameSelected();
-        public void onMaterialSearchResult(Recipe[] searchResult);
+        public void onMaterialSearchResult(ArrayList<Recipe> result);
     }
 
     @Override
@@ -108,7 +113,7 @@ public class SearchMaterial extends Fragment {
         for(int i = 0; i < 5; i++) // TODO: total number of tools from database
         {
             // TODO: name, url from database
-            toolData = new Tool(R.drawable.material01 + i, (String) ("Tool" + i), "http://www.cuisines-kocher-metz.fr/images/icon-pan.png");
+            toolData = new Tool(R.drawable.material01 + i, (String) ("Tool" + i), "http://www.cuisines-kocher-metz.fr/images/icon-pan.png", i);
             toolList.add(toolData);
         }
 
@@ -159,17 +164,36 @@ public class SearchMaterial extends Fragment {
                     if(materialAdapter.getCheckBoxState(i))
                         selectedMaterial+=materialAdapter.getItemIndex(i);
                 }
-                String selectedToolName = null;
+
+                int selectedTool = 0;
                 for(int i = 0; i < 5; i++){
                     if(adapter.getCheckBoxState(i))
-                        selectedToolName = (String)adapter.getItem(i);
+                        selectedTool+=adapter.getItemIndex(i);
                 }
-                Recipe[] searchResult = searchManager.reqByIngredient(selectedMaterial, selectedToolName);
-                mCallback.onMaterialSearchResult(searchResult);
+                searchMaterialAsyncTask = new SearchMaterialAsyncTask();
+                searchMaterialAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, selectedMaterial, selectedTool);
             }
         });
 
         return rootView;
+    }
+
+    private class SearchMaterialAsyncTask extends AsyncTask<Integer, Void, ArrayList<Recipe>> {
+
+        @Override
+        protected ArrayList<Recipe> doInBackground(Integer... params) {
+            SearchManager s = new SearchManager();
+            result = s.reqByIngredient(params[0], params[1]);
+            return result;
+        }
+
+        protected void onPostExecute(ArrayList<Recipe> r) {
+            super.onPostExecute(r);
+            for(int i=0; i < r.size(); i++) {
+                Log.d("Sync", r.get(i).getName());
+            }
+            mCallback.onMaterialSearchResult(r);
+        }
     }
 
 }

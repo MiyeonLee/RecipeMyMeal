@@ -38,6 +38,8 @@ public class ToolTextAdapter extends BaseAdapter {
         return position;
     }
 
+    public int getItemIndex(int position){ return arrayTool.get(position).BitPosition;}
+
     public boolean getCheckBoxState(int position){
         return arrayTool.get(position).getCheckBoxState();
     }

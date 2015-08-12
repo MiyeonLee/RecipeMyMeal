@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+
 import sep.architecture.recipemymeal.Fragment.ResultDetail;
 import sep.architecture.recipemymeal.Fragment.ResultList;
 import sep.architecture.recipemymeal.R;
@@ -19,6 +21,8 @@ public class RecipeClient extends ActionBarActivity
                     SearchName.OnSearchNameSelectedListener,
                     ResultList.OnResultListSelectedListener,
                     ResultDetail.OnResultDetailFragmentSelectedListener{
+
+    ArrayList<Recipe> savedResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,8 +110,9 @@ public class RecipeClient extends ActionBarActivity
         transaction.commit();
     }
 
-    public void onNameSearchResult(Recipe result){
-        ResultList newFragment = new ResultList(result);
+    public void onNameSearchResult(ArrayList<Recipe> searchResult){
+        ResultList newFragment = new ResultList(searchResult);
+        savedResult = searchResult;
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
@@ -120,8 +125,9 @@ public class RecipeClient extends ActionBarActivity
         transaction.commit();
     }
 
-    public void onMaterialSearchResult(Recipe[] searchResult){
+    public void onMaterialSearchResult(ArrayList<Recipe> searchResult){
         ResultList newFragment = new ResultList(searchResult);
+        savedResult = searchResult;
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
@@ -149,11 +155,6 @@ public class RecipeClient extends ActionBarActivity
         transaction.commit();
     }
 
-    @Override
-    public void onNameSearchResult() {
-
-    }
-
     public void onListItemSelected(Recipe selectedRecipe){
         ResultDetail newFragment = new ResultDetail(selectedRecipe);
 
@@ -168,8 +169,23 @@ public class RecipeClient extends ActionBarActivity
         transaction.commit();
     }
 
+    public void onBackFromListSelected(){
+        SearchMaterial newFragment = new SearchMaterial();
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack so the user can navigate back
+        transaction.replace(R.id.fragment_container, newFragment);
+        transaction.addToBackStack(null);
+
+        // Commit the transaction
+        transaction.commit();
+    }
+
+
     public void onBackSelected(){
-        ResultList newFragment = new ResultList();
+        ResultList newFragment = new ResultList(savedResult);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
