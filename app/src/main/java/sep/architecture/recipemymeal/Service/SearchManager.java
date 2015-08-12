@@ -1,8 +1,5 @@
 package sep.architecture.recipemymeal.Service;
 
-import android.os.AsyncTask;
-import android.util.Log;
-
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
@@ -10,7 +7,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import sep.architecture.recipemymeal.R;
@@ -30,10 +26,12 @@ public class SearchManager extends ClientManager {
     protected static final String TAG_THASH = "thash";
     protected static final String TAG_CONTENT = "content";
 
-    JSONArray recipeArray = null;
 
-    public Recipe[] reqByIngredient(int materialHash, int toolhash) {
-        Recipe[] recipes = null;
+
+    public  ArrayList<Recipe> reqByIngredient(int materialHash, int toolhash) {
+        ArrayList<Recipe> recipeList = new ArrayList<>();
+        JSONArray recipeArray;
+
         String subAddress = "reqByIngredient.php";
         String requestAddress = SERVER_ADDRESS.concat(subAddress);
 
@@ -49,6 +47,26 @@ public class SearchManager extends ClientManager {
 
             if (success == 1) {
 
+                recipeArray = json.getJSONArray(TAG_RECIPE);
+
+                for (int i = 0; i < recipeArray.length(); i++) {
+                    JSONObject c = recipeArray.getJSONObject(i);
+
+                    String rname = c.getString(TAG_NAME);
+                    String url = c.getString(TAG_URL);
+                    String mhash = c.getString(TAG_MHASH);
+                    String thash = c.getString(TAG_THASH);
+                    String content = c.getString(TAG_CONTENT);
+
+                    //Log.d(TAG, rname+url+mhash+thash+content );
+
+                    // Jeffrey.cho
+                    // Need to modify Recipe constructor
+                    Recipe r = new Recipe(R.drawable.material01, rname);
+
+                    // adding HashList to ArrayList
+                    recipeList.add(r);
+                }
 
             } else {
                 // failed to request
@@ -57,18 +75,19 @@ public class SearchManager extends ClientManager {
             e.printStackTrace();
         }
 
-        return recipes;
+        return recipeList;
     }
 
     public ArrayList<Recipe> reqByName(String name) {
 
         ArrayList<Recipe> recipeList = new ArrayList<>();
+        JSONArray recipeArray;
 
         String subAddress = "reqByName.php";
         String requestAddress = SERVER_ADDRESS.concat(subAddress);
 
         // Building Parameters
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        List<NameValuePair> params = new ArrayList<>();
         params.add(new BasicNameValuePair("name", name));
 
         JSONObject json = jParser.makeHttpRequest(requestAddress, "POST", params);
@@ -88,8 +107,10 @@ public class SearchManager extends ClientManager {
                     String thash = c.getString(TAG_THASH);
                     String content = c.getString(TAG_CONTENT);
 
-                    Log.d(TAG, rname+url+mhash+thash+content );
+                    //Log.d(TAG, rname+url+mhash+thash+content );
 
+                    // Jeffrey.cho
+                    // Need to modify Recipe constructor
                     Recipe r = new Recipe(R.drawable.material01, rname);
 
                     // adding HashList to ArrayList
