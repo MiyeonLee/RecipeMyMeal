@@ -98,7 +98,7 @@ public class MaterialToolManager extends ClientManager {
 
                     // Jeffrey.cho
                     // Need to modify Tool constructor
-                    Tool t = new Tool(R.drawable.material01, rname, url);
+                    Tool t = new Tool(R.drawable.material01, rname, url, Integer.parseInt(mhash));
 
                     // adding HashList to ArrayList
                     toolList.add(t);
