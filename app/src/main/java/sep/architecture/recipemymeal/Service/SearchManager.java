@@ -32,14 +32,15 @@ public class SearchManager extends ClientManager {
 
     JSONArray recipeArray = null;
 
-    public Recipe[] reqByIngredient(int mhash, String tool) {
+    public Recipe[] reqByIngredient(int materialHash, int toolhash) {
         Recipe[] recipes = null;
         String subAddress = "reqByIngredient.php";
         String requestAddress = SERVER_ADDRESS.concat(subAddress);
 
         // Building Parameters
         List<NameValuePair> params = new ArrayList<NameValuePair>();
-        //params.add(new BasicNameValuePair("mhash", mhash));
+        params.add(new BasicNameValuePair("mhash", Integer.toString(materialHash)));
+        params.add(new BasicNameValuePair("thash", Integer.toString(toolhash)));
 
         JSONObject json = jParser.makeHttpRequest(requestAddress, "POST", params);
 
