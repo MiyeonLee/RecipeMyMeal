@@ -149,6 +149,11 @@ public class RecipeClient extends ActionBarActivity
         transaction.commit();
     }
 
+    @Override
+    public void onNameSearchResult() {
+
+    }
+
     public void onListItemSelected(Recipe selectedRecipe){
         ResultDetail newFragment = new ResultDetail(selectedRecipe);
 

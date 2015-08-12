@@ -164,7 +164,7 @@ public class SearchMaterial extends Fragment {
                     if(adapter.getCheckBoxState(i))
                         selectedToolName = (String)adapter.getItem(i);
                 }
-                Recipe[] searchResult = searchManager.reqByIngredient(null, selectedToolName);
+                Recipe[] searchResult = searchManager.reqByIngredient(selectedMaterial, selectedToolName);
                 mCallback.onMaterialSearchResult(searchResult);
             }
         });

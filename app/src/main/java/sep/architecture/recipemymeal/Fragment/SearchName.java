@@ -1,13 +1,17 @@
 package sep.architecture.recipemymeal.Fragment;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+
+import java.util.ArrayList;
 
 import sep.architecture.recipemymeal.R;
 import sep.architecture.recipemymeal.Recipe;
@@ -22,13 +26,16 @@ public class SearchName extends Fragment {
     Button material;
     Button search;
 
+
+    SearchNameAsyncTask searchNameAsyncTask;
+    ArrayList<Recipe> result;
     // for search material and tools
     public SearchName() {
     }
 
     public interface OnSearchNameSelectedListener {
         public void onMaterialSelected();
-        public void onNameSearchResult(Recipe result);
+        public void onNameSearchResult();
     }
 
     @Override
@@ -66,9 +73,8 @@ public class SearchName extends Fragment {
                 String foodName = editText.getText().toString();
                 if(foodName != null){
                     // TODO: try searching by name
-                    SearchManager searchManager = new SearchManager();
-                    Recipe searchResult = searchManager.reqByName(foodName);
-                    mCallback.onNameSearchResult(searchResult);
+                    searchNameAsyncTask = new SearchNameAsyncTask();
+                    searchNameAsyncTask.execute(foodName);
                 }
                 else{
                     // TODO: alert user to enter the name
@@ -79,4 +85,21 @@ public class SearchName extends Fragment {
         return rootView;
     }
 
+    private class SearchNameAsyncTask extends AsyncTask<String, String, ArrayList<Recipe>> {
+
+        @Override
+        protected ArrayList<Recipe> doInBackground(String... params) {
+            SearchManager s = new SearchManager();
+            result = s.reqByName(params[0]);
+            return result;
+        }
+
+        protected void onPostExecute(ArrayList<Recipe> r) {
+            super.onPostExecute(r);
+            for(int i=0; i < r.size(); i++) {
+                Log.d("Sync", r.get(i).getName());
+            }
+            mCallback.onNameSearchResult();
+        }
+    }
 }
