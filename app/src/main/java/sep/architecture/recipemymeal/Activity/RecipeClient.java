@@ -10,11 +10,13 @@ import java.util.ArrayList;
 
 import sep.architecture.recipemymeal.Fragment.ResultDetail;
 import sep.architecture.recipemymeal.Fragment.ResultList;
+import sep.architecture.recipemymeal.Material;
 import sep.architecture.recipemymeal.R;
 import sep.architecture.recipemymeal.Fragment.SearchMaterial;
 import sep.architecture.recipemymeal.Fragment.SearchName;
 import sep.architecture.recipemymeal.Recipe;
 import sep.architecture.recipemymeal.Service.ClientManager;                 // Refer to Architecture Design
+import sep.architecture.recipemymeal.Tool;
 
 public class RecipeClient extends ActionBarActivity
         implements SearchMaterial.OnSearchMaterialFragmentSelectedListener,
@@ -24,10 +26,16 @@ public class RecipeClient extends ActionBarActivity
 
     ArrayList<Recipe> savedResult;
 
+    ArrayList<Material> downloadedMaterialList;
+    ArrayList<Tool> downloadedToolList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        downloadedMaterialList = (ArrayList<Material>)getIntent().getSerializableExtra("Material");
+        downloadedToolList = (ArrayList<Tool>)getIntent().getSerializableExtra("Tool");
 
         // Check that the activity is using the layout version with
         // the fragment_container FrameLayout
@@ -41,7 +49,7 @@ public class RecipeClient extends ActionBarActivity
             }
 
             // Create a new Fragment to be placed in the activity layout
-            SearchMaterial firstFragment = new SearchMaterial();
+            SearchMaterial firstFragment = new SearchMaterial(downloadedMaterialList, downloadedToolList);
 
             // In case this activity was started with special instructions from an
             // Intent, pass the Intent's extras to the fragment as arguments
@@ -142,7 +150,7 @@ public class RecipeClient extends ActionBarActivity
 
 
     public void onMaterialSelected() {         // change fragment to material
-        SearchMaterial newFragment = new SearchMaterial();
+        SearchMaterial newFragment = new SearchMaterial(downloadedMaterialList, downloadedToolList);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
@@ -170,7 +178,7 @@ public class RecipeClient extends ActionBarActivity
     }
 
     public void onBackFromListSelected(){
-        SearchMaterial newFragment = new SearchMaterial();
+        SearchMaterial newFragment = new SearchMaterial(downloadedMaterialList, downloadedToolList);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 

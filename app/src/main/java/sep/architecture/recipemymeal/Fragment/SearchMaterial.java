@@ -1,5 +1,6 @@
 package sep.architecture.recipemymeal.Fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -44,6 +45,12 @@ public class SearchMaterial extends Fragment {
     public SearchMaterial() {
     }
 
+    @SuppressLint("ValidFragment")
+    public SearchMaterial(ArrayList<Material> mList, ArrayList<Tool> tList) {
+        materialList = mList;
+        toolList = tList;
+    }
+
     public interface OnSearchMaterialFragmentSelectedListener {
         public void onNameSelected();
         public void onMaterialSearchResult(ArrayList<Recipe> result);
@@ -69,17 +76,21 @@ public class SearchMaterial extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_searchmaterial, container, false);
 
+        /*
         materialList = new ArrayList<Material>();
         toolList = new ArrayList<Tool>();
-
+        */
         //-------------------------------------
+        /*
         Material materialData;
+
         for(int i = 0; i < 24; i++) // TODO: total number of materials from database
         {
             // TODO: name, url from database
             materialData = new Material(R.drawable.material01 + i, (String) ("Material" + i), "https://portasilo.com/portasilo/wp-content/uploads/sites/7/2015/02/icon-food.png", i);
             materialList.add(materialData);
         }
+        */
 
         final MaterialTextAdapter materialAdapter = new MaterialTextAdapter(mContext, R.layout.material_item, materialList);
 
@@ -109,6 +120,7 @@ public class SearchMaterial extends Fragment {
         //-------------------------------------
 
         //-------------------------------------
+        /*
         Tool toolData;
         for(int i = 0; i < 5; i++) // TODO: total number of tools from database
         {
@@ -116,6 +128,7 @@ public class SearchMaterial extends Fragment {
             toolData = new Tool(R.drawable.material01 + i, (String) ("Tool" + i), "http://www.cuisines-kocher-metz.fr/images/icon-pan.png", i);
             toolList.add(toolData);
         }
+        */
 
         final ToolTextAdapter adapter = new ToolTextAdapter(mContext, R.layout.tool_item, toolList);
 

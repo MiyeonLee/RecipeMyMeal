@@ -1,6 +1,8 @@
 package sep.architecture.recipemymeal;
 
-public class Tool{
+import java.io.Serializable;
+
+public class Tool implements Serializable{
     int Image;
     String Url;
     String Name;

@@ -27,6 +27,9 @@ public class Loading extends Activity {
     MaterialRequestAsyncTask materialRequestAsyncTask;
     ToolRequestAsyncTask toolRequestAsyncTask;
 
+    ArrayList<Material> downloadedMaterialList;
+    ArrayList<Tool> downloadedToolList;
+
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
@@ -51,6 +54,9 @@ public class Loading extends Activity {
         toolRequestAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, 0, 0);
     }
 
+    public ArrayList<Material> getMaterialList(){return downloadedMaterialList;}
+    public ArrayList<Tool> getToolList(){return downloadedToolList;}
+
     private class MaterialRequestAsyncTask extends AsyncTask<Integer, Void, ArrayList<Material>> {
         protected ArrayList<Material> doInBackground(Integer... params) {
             MaterialToolManager s = new MaterialToolManager();
@@ -60,10 +66,14 @@ public class Loading extends Activity {
 
         protected void onPostExecute(ArrayList<Material> r) {
             super.onPostExecute(r);
+            downloadedMaterialList = r;
             Handler handler = new Handler(){
                 public void handleMessage(Message msg){
                     super.handleMessage(msg);
-                    startActivity(new Intent(Loading.this, RecipeClient.class));
+                    Intent changeScreen = new Intent(Loading.this, RecipeClient.class);
+                    changeScreen.putExtra("Material", downloadedMaterialList);
+                    changeScreen.putExtra("Tool", downloadedToolList);
+                    startActivity(changeScreen);
                     finish();;
                 }
             };
@@ -80,6 +90,7 @@ public class Loading extends Activity {
 
         protected void onPostExecute(ArrayList<Tool> r) {
             super.onPostExecute(r);
+            downloadedToolList = r;
         }
     }
 }

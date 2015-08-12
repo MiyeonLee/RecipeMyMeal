@@ -1,6 +1,8 @@
 package sep.architecture.recipemymeal;
 
-public class Material{
+import java.io.Serializable;
+
+public class Material implements Serializable{
     int Image;
     int BitPosition;
     String Url;
