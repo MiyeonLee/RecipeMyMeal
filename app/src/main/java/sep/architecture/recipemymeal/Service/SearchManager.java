@@ -32,8 +32,8 @@ public class SearchManager extends ClientManager {
 
     JSONArray recipeArray = null;
 
-    public Recipe[] reqByIngredient(int mhash, String tool) {
-        Recipe[] recipes = null;
+    public ArrayList<Recipe> reqByIngredient(int materialHash, int toolHash) {
+        ArrayList<Recipe> recipeList = null;
         String subAddress = "reqByIngredient.php";
         String requestAddress = SERVER_ADDRESS.concat(subAddress);
 
@@ -47,7 +47,24 @@ public class SearchManager extends ClientManager {
             int success = json.getInt(TAG_SUCCESS);
 
             if (success == 1) {
+                recipeArray = json.getJSONArray(TAG_RECIPE);
 
+                for (int i = 0; i < recipeArray.length(); i++) {
+                    JSONObject c = recipeArray.getJSONObject(i);
+
+                    String rname = c.getString(TAG_NAME);
+                    String url = c.getString(TAG_URL);
+                    String mhash = c.getString(TAG_MHASH);
+                    String thash = c.getString(TAG_THASH);
+                    String content = c.getString(TAG_CONTENT);
+
+                    Log.d(TAG, rname+url+mhash+thash+content );
+
+                    Recipe r = new Recipe(R.drawable.material01, rname);
+
+                    // adding HashList to ArrayList
+                    recipeList.add(r);
+                }
 
             } else {
                 // failed to request
@@ -56,7 +73,7 @@ public class SearchManager extends ClientManager {
             e.printStackTrace();
         }
 
-        return recipes;
+        return recipeList;
     }
 
     public ArrayList<Recipe> reqByName(String name) {

@@ -10,6 +10,17 @@
         android:layout_height="wrap_content"
         android:id="@+id/textView2" />
 
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:id="@+id/btn_back2"
+        android:focusable="false"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
     <ListView
         android:id="@+id/resultlist"
         android:layout_width="match_parent"

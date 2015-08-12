@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class ResultList extends Fragment {
 
     ArrayList<Recipe> recipeList;
     Recipe recipeResult;
+    Button back;
 
     public ResultList() {
     }
@@ -36,14 +38,13 @@ public class ResultList extends Fragment {
     }
 
     @SuppressLint("ValidFragment")
-    public ResultList(Recipe[] result) {
-        for(int i = 0; i < result.length; i++){
-            recipeList.add(result[i]);
-        }
+    public ResultList(ArrayList<Recipe> result) {
+        recipeList = result;
     }
 
     public interface OnResultListSelectedListener {
         public void onListItemSelected(Recipe selectedRecipe);
+        public void onBackFromListSelected();
     }
 
     @Override
@@ -65,7 +66,7 @@ public class ResultList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_resultlist, container, false);
-
+/*
         recipeList = new ArrayList<Recipe>();
 
         Recipe recipeData;
@@ -74,7 +75,7 @@ public class ResultList extends Fragment {
             recipeData = new Recipe(R.drawable.material24-i, (String)("Recipe" + i));
             recipeList.add(recipeData);
         }
-
+*/
         final RecipeTextAdapter adapter = new RecipeTextAdapter(mContext, R.layout.recipe_item, recipeList);
 
         ListView list;
@@ -85,6 +86,17 @@ public class ResultList extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 mCallback.onListItemSelected(adapter.getRecipe(position));
+            }
+        });
+
+        // buttons
+        back = (Button)rootView.findViewById(R.id.btn_back2);
+
+        // button events
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCallback.onBackFromListSelected();
             }
         });
 
