@@ -10,6 +10,8 @@
         <activity
             android:name=".Activity.RecipeClient"
             android:label="@string/app_name" >
+        </activity>
+        <activity android:name=".Activity.Loading">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

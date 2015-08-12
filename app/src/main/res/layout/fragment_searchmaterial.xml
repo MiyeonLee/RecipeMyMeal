@@ -20,30 +20,39 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:focusable="false" />
-
-    <ListView
-        android:id="@+id/materialList"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_name">
-    </ListView>
-
-    <ListView
-        android:id="@+id/toolList"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_name"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
-    </ListView>
-
+    
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Search"
         android:id="@+id/btn_searchbyname"
-        android:layout_alignTop="@+id/btn_name"
-        android:layout_alignRight="@+id/toolList"
-        android:layout_alignEnd="@+id/toolList" />
+        android:layout_above="@+id/linearLayout"
+        android:layout_alignRight="@+id/linearLayout"
+        android:layout_alignEnd="@+id/linearLayout" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_name"
+        android:id="@+id/linearLayout">
+        <ListView
+            android:id="@+id/materialList"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_name">
+        </ListView>
+
+        <ListView
+            android:id="@+id/toolList"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_name"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true">
+        </ListView>
+    </LinearLayout>
 </RelativeLayout>
