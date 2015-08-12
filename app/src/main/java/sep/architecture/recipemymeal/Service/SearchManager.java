@@ -1,8 +1,5 @@
 package sep.architecture.recipemymeal.Service;
 
-import android.os.AsyncTask;
-import android.util.Log;
-
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
@@ -10,7 +7,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import sep.architecture.recipemymeal.R;
@@ -18,6 +14,8 @@ import sep.architecture.recipemymeal.Recipe;
 
 /**
  * Created by josephine.lee on 2015-08-11.
+ * Add & Modify by jeffrey.cho on 2015-08-12
+ * Specify method implementation
  */
 public class SearchManager extends ClientManager {
 
@@ -32,14 +30,17 @@ public class SearchManager extends ClientManager {
 
     JSONArray recipeArray = null;
 
-    public Recipe[] reqByIngredient(int mhash, String tool) {
-        Recipe[] recipes = null;
+    public ArrayList<Recipe> reqByIngredient(int materialHash, int toolHash) {
+
+        ArrayList<Recipe> recipeList = new ArrayList<>();
+
         String subAddress = "reqByIngredient.php";
         String requestAddress = SERVER_ADDRESS.concat(subAddress);
 
         // Building Parameters
         List<NameValuePair> params = new ArrayList<NameValuePair>();
-        //params.add(new BasicNameValuePair("mhash", mhash));
+        params.add(new BasicNameValuePair("mhash",  Integer.toString(materialHash)));
+        params.add(new BasicNameValuePair("thash", Integer.toString(toolHash)));
 
         JSONObject json = jParser.makeHttpRequest(requestAddress, "POST", params);
 
@@ -48,15 +49,34 @@ public class SearchManager extends ClientManager {
 
             if (success == 1) {
 
+                recipeArray = json.getJSONArray(TAG_RECIPE);
 
+                for (int i = 0; i < recipeArray.length(); i++) {
+                    JSONObject c = recipeArray.getJSONObject(i);
+
+                    String rname = c.getString(TAG_NAME);
+                    String url = c.getString(TAG_URL);
+                    String mhash = c.getString(TAG_MHASH);
+                    String thash = c.getString(TAG_THASH);
+                    String content = c.getString(TAG_CONTENT);
+
+                    // jeffrey.cho
+                    // Need to modify Recipe constructor
+                    Recipe r = new Recipe(R.drawable.material01, rname);
+
+                    // adding HashList to ArrayList
+                    recipeList.add(r);
+                }
             } else {
                 // failed to request
             }
         } catch (JSONException e) {
             e.printStackTrace();
+        } finally {
+            if (recipeArray != null) recipeArray = null;
         }
 
-        return recipes;
+        return recipeList;
     }
 
     public ArrayList<Recipe> reqByName(String name) {
@@ -87,8 +107,10 @@ public class SearchManager extends ClientManager {
                     String thash = c.getString(TAG_THASH);
                     String content = c.getString(TAG_CONTENT);
 
-                    Log.d(TAG, rname+url+mhash+thash+content );
+                    //Log.d(TAG, rname+url+mhash+thash+content );
 
+                    // jeffrey.cho
+                    // Need to modify Recipe constructor
                     Recipe r = new Recipe(R.drawable.material01, rname);
 
                     // adding HashList to ArrayList
@@ -100,6 +122,8 @@ public class SearchManager extends ClientManager {
             }
         } catch (JSONException e) {
             e.printStackTrace();
+        } finally {
+            if (recipeArray != null) recipeArray = null;
         }
 
         return recipeList;
