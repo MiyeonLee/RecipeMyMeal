@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import sep.architecture.recipemymeal.R;
+import sep.architecture.recipemymeal.Recipe;
+import sep.architecture.recipemymeal.Service.SearchManager;
 
 
 /**
@@ -26,6 +28,7 @@ public class SearchName extends Fragment {
 
     public interface OnSearchNameSelectedListener {
         public void onMaterialSelected();
+        public void onNameSearchResult(Recipe result);
     }
 
     @Override
@@ -63,6 +66,9 @@ public class SearchName extends Fragment {
                 String foodName = editText.getText().toString();
                 if(foodName != null){
                     // TODO: try searching by name
+                    SearchManager searchManager = new SearchManager();
+                    Recipe searchResult = searchManager.reqByName(foodName);
+                    mCallback.onNameSearchResult(searchResult);
                 }
                 else{
                     // TODO: alert user to enter the name

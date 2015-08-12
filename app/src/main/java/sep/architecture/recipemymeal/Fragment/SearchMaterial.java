@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import sep.architecture.recipemymeal.Material;
 import sep.architecture.recipemymeal.MaterialTextAdapter;
 import sep.architecture.recipemymeal.R;
+import sep.architecture.recipemymeal.Recipe;
+import sep.architecture.recipemymeal.Service.SearchManager;
 import sep.architecture.recipemymeal.Tool;
 import sep.architecture.recipemymeal.ToolTextAdapter;
 
@@ -39,6 +41,7 @@ public class SearchMaterial extends Fragment {
 
     public interface OnSearchMaterialFragmentSelectedListener {
         public void onNameSelected();
+        public void onMaterialSearchResult(Recipe[] searchResult);
     }
 
     @Override
@@ -69,7 +72,7 @@ public class SearchMaterial extends Fragment {
         for(int i = 0; i < 24; i++) // TODO: total number of materials from database
         {
             // TODO: name, url from database
-            materialData = new Material(R.drawable.material01 + i, (String) ("Material" + i), "https://portasilo.com/portasilo/wp-content/uploads/sites/7/2015/02/icon-food.png");
+            materialData = new Material(R.drawable.material01 + i, (String) ("Material" + i), "https://portasilo.com/portasilo/wp-content/uploads/sites/7/2015/02/icon-food.png", i);
             materialList.add(materialData);
         }
 
@@ -150,6 +153,19 @@ public class SearchMaterial extends Fragment {
         search.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // TODO: clickbox check routine
+                SearchManager searchManager = new SearchManager();
+                int selectedMaterial = 0;
+                for(int i = 0; i < 24; i++){
+                    if(materialAdapter.getCheckBoxState(i))
+                        selectedMaterial+=materialAdapter.getItemIndex(i);
+                }
+                String selectedToolName = null;
+                for(int i = 0; i < 5; i++){
+                    if(adapter.getCheckBoxState(i))
+                        selectedToolName = (String)adapter.getItem(i);
+                }
+                Recipe[] searchResult = searchManager.reqByIngredient(null, selectedToolName);
+                mCallback.onMaterialSearchResult(searchResult);
             }
         });
 

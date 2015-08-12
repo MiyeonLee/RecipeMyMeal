@@ -47,7 +47,7 @@ public class RecipeClient extends ActionBarActivity
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_container, firstFragment).commit();
         }
-
+/*
         if (findViewById(R.id.fragment_container2) != null) {
 
             // However, if we're being restored from a previous state,
@@ -67,7 +67,7 @@ public class RecipeClient extends ActionBarActivity
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_container2, secondFragment).commit();
         }
-
+*/
     }
 
     @Override
@@ -106,6 +106,35 @@ public class RecipeClient extends ActionBarActivity
         transaction.commit();
     }
 
+    public void onNameSearchResult(Recipe result){
+        ResultList newFragment = new ResultList(result);
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack so the user can navigate back
+        transaction.replace(R.id.fragment_container, newFragment);
+        transaction.addToBackStack(null);
+
+        // Commit the transaction
+        transaction.commit();
+    }
+
+    public void onMaterialSearchResult(Recipe[] searchResult){
+        ResultList newFragment = new ResultList(searchResult);
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack so the user can navigate back
+        transaction.replace(R.id.fragment_container, newFragment);
+        transaction.addToBackStack(null);
+
+        // Commit the transaction
+        transaction.commit();
+    }
+
+
     public void onMaterialSelected() {         // change fragment to material
         SearchMaterial newFragment = new SearchMaterial();
 
@@ -127,7 +156,7 @@ public class RecipeClient extends ActionBarActivity
 
         // Replace whatever is in the fragment_container view with this fragment,
         // and add the transaction to the back stack so the user can navigate back
-        transaction.replace(R.id.fragment_container2, newFragment);
+        transaction.replace(R.id.fragment_container, newFragment);
         transaction.addToBackStack(null);
 
         // Commit the transaction
@@ -141,7 +170,7 @@ public class RecipeClient extends ActionBarActivity
 
         // Replace whatever is in the fragment_container view with this fragment,
         // and add the transaction to the back stack so the user can navigate back
-        transaction.replace(R.id.fragment_container2, newFragment);
+        transaction.replace(R.id.fragment_container, newFragment);
         transaction.addToBackStack(null);
 
         // Commit the transaction

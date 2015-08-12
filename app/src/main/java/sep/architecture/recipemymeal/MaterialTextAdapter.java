@@ -38,6 +38,8 @@ public class MaterialTextAdapter extends BaseAdapter {
         return position;
     }
 
+    public int getItemIndex(int position){ return arrayMaterial.get(position).BitPosition;}
+
     public boolean getCheckBoxState(int position){
         return arrayMaterial.get(position).getCheckBoxState();
     }
@@ -73,12 +75,16 @@ public class MaterialTextAdapter extends BaseAdapter {
         }
 
         ImageView img = (ImageView) convertView.findViewById(R.id.thumbnail);
+        /*  // TODO: image download cause of exception now -> need to fix
         if(arrayMaterial.get(position).Url != null) {
             DownloadImage task = new DownloadImage(img);
             task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, new String[]{arrayMaterial.get(position).Url});
         }else{
+        */
             img.setImageResource(arrayMaterial.get(position).Image);
+        /*
         }
+        */
 
         TextView txt = (TextView)convertView.findViewById(R.id.recipename);
         txt.setText(arrayMaterial.get(position).Name);

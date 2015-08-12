@@ -2,11 +2,12 @@ package sep.architecture.recipemymeal;
 
 public class Material{
     int Image;
+    int BitPosition;
     String Url;
     String Name;
     boolean CheckBoxState;
 
-    public Material(int aIcon, String aName, String aUrl){
+    public Material(int aIcon, String aName, String aUrl, int BitPosition){
         Image = aIcon;
         Name = aName;
         Url = aUrl;

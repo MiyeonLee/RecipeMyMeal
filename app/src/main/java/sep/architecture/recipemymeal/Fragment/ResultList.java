@@ -1,5 +1,6 @@
 package sep.architecture.recipemymeal.Fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -24,8 +25,21 @@ public class ResultList extends Fragment {
     Context mContext;
 
     ArrayList<Recipe> recipeList;
+    Recipe recipeResult;
 
     public ResultList() {
+    }
+
+    @SuppressLint("ValidFragment")
+    public ResultList(Recipe result) {
+        recipeResult = result;
+    }
+
+    @SuppressLint("ValidFragment")
+    public ResultList(Recipe[] result) {
+        for(int i = 0; i < result.length; i++){
+            recipeList.add(result[i]);
+        }
     }
 
     public interface OnResultListSelectedListener {
