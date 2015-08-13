@@ -107,8 +107,7 @@ public class ResultDetail extends Fragment {
         txt = (TextView)rootView.findViewById(R.id.recipe_tool_lists);
         String printedTool = toolIncluded.get(0);
         for(int i = 1; i < toolIncluded.size(); i++){
-            printedTool.concat(" ");
-            printedTool.concat(toolIncluded.get(i));
+            printedTool = printedTool + " " + toolIncluded.get(i);
         }
         txt.setText(printedTool);
 
