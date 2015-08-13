@@ -100,7 +100,7 @@ public class ResultDetail extends Fragment {
                 // do nothing
             }else{
                 toolIncluded.add(toolList.get(i).getName());
-                mHash -= toolList.get(i).getBitposition();
+                tHash -= toolList.get(i).getBitposition();
             }
         }
 
