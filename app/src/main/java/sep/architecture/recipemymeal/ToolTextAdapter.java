@@ -10,6 +10,10 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 public class ToolTextAdapter extends BaseAdapter {
@@ -76,8 +80,11 @@ public class ToolTextAdapter extends BaseAdapter {
 
         ImageView img = (ImageView) convertView.findViewById(R.id.thumbnail_tool);
         if(arrayTool.get(position).Url != null) {
-            DownloadImage task = new DownloadImage(img);
-            task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, new String[]{arrayTool.get(position).Url});
+            Picasso.with(mContext).load(arrayTool.get(position).Url)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .networkPolicy(NetworkPolicy.NO_CACHE).into(img);
+            //DownloadImage task = new DownloadImage(img);
+            //task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, new String[]{arrayTool.get(position).Url});
         }else{
             img.setImageResource(arrayTool.get(position).Image);
         }

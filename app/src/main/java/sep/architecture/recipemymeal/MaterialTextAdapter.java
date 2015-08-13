@@ -1,5 +1,7 @@
 package sep.architecture.recipemymeal;
 
+import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
@@ -9,6 +11,11 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
+
 
 import java.util.ArrayList;
 
@@ -75,16 +82,16 @@ public class MaterialTextAdapter extends BaseAdapter {
         }
 
         ImageView img = (ImageView) convertView.findViewById(R.id.thumbnail);
-        /*  // TODO: image download cause of exception now -> need to fix
+
+          // TODO: image download cause of exception now -> need to fix
         if(arrayMaterial.get(position).Url != null) {
-            DownloadImage task = new DownloadImage(img);
-            task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, new String[]{arrayMaterial.get(position).Url});
+            Picasso.with(mContext).load(arrayMaterial.get(position).Url)
+                .memoryPolicy(MemoryPolicy.NO_CACHE)
+                .networkPolicy(NetworkPolicy.NO_CACHE).into(img);
         }else{
-        */
             img.setImageResource(arrayMaterial.get(position).Image);
-        /*
         }
-        */
+
 
         TextView txt = (TextView)convertView.findViewById(R.id.recipename);
         txt.setText(arrayMaterial.get(position).Name);
