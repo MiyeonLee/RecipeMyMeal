@@ -62,7 +62,7 @@ public class SearchManager extends ClientManager {
 
                     // Jeffrey.cho
                     // Need to modify Recipe constructor
-                    Recipe r = new Recipe(R.drawable.material01, rname);
+                    Recipe r = new Recipe(url, rname);
 
                     // adding HashList to ArrayList
                     recipeList.add(r);
@@ -111,7 +111,7 @@ public class SearchManager extends ClientManager {
 
                     // Jeffrey.cho
                     // Need to modify Recipe constructor
-                    Recipe r = new Recipe(R.drawable.material01, rname);
+                    Recipe r = new Recipe(url, rname);
 
                     // adding HashList to ArrayList
                     recipeList.add(r);

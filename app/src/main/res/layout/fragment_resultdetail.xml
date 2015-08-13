@@ -30,12 +30,21 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
+    <ImageView
+        android:id="@+id/thumbnail_food"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:clickable="false"
+        android:layout_below="@+id/btn_back"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Recipe Material"
         android:id="@+id/recipe_material_lists"
-        android:layout_below="@+id/recipe_title"
+        android:layout_below="@+id/thumbnail_food"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 

@@ -3,14 +3,17 @@ package sep.architecture.recipemymeal.Fragment;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import sep.architecture.recipemymeal.DownloadImage;
 import sep.architecture.recipemymeal.R;
 import sep.architecture.recipemymeal.Recipe;
 
@@ -58,6 +61,14 @@ public class ResultDetail extends Fragment {
 
         TextView txt = (TextView)rootView.findViewById(R.id.recipe_title);
         txt.setText(recipe.getName());
+
+        ImageView img = (ImageView) rootView.findViewById(R.id.thumbnail_food);
+        if(recipe.getUrl() != null) {
+            DownloadImage task = new DownloadImage(img);
+            task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, new String[]{recipe.getUrl()});
+        }else{
+            img.setImageResource(recipe.getImageId());
+        }
 
         // buttons
         back = (Button)rootView.findViewById(R.id.btn_back);
