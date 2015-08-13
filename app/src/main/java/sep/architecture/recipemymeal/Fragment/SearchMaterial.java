@@ -173,13 +173,13 @@ public class SearchMaterial extends Fragment {
                 // TODO: clickbox check routine
                 SearchManager searchManager = new SearchManager();
                 int selectedMaterial = 0;
-                for(int i = 0; i < 24; i++){
+                for(int i = 0; i < materialAdapter.getCount(); i++){
                     if(materialAdapter.getCheckBoxState(i))
                         selectedMaterial+=materialAdapter.getItemIndex(i);
                 }
 
                 int selectedTool = 0;
-                for(int i = 0; i < 5; i++){
+                for(int i = 0; i < adapter.getCount(); i++){
                     if(adapter.getCheckBoxState(i))
                         selectedTool+=adapter.getItemIndex(i);
                 }
