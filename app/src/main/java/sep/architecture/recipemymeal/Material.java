@@ -9,11 +9,12 @@ public class Material implements Serializable{
     String Name;
     boolean CheckBoxState;
 
-    public Material(int aIcon, String aName, String aUrl, int BitPosition){
+    public Material(int aIcon, String aName, String aUrl, int aBitPosition){
         Image = aIcon;
         Name = aName;
         Url = aUrl;
         CheckBoxState = false;
+        BitPosition = aBitPosition;
     }
 
     public boolean getCheckBoxState() {
