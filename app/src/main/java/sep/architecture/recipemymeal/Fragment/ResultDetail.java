@@ -104,13 +104,15 @@ public class ResultDetail extends Fragment {
             }
         }
 
-        txt = (TextView)rootView.findViewById(R.id.recipe_tool_lists);
-        String printedTool = toolIncluded.get(0);
-        for(int i = 1; i < toolIncluded.size(); i++){
-            printedTool = printedTool + " " + toolIncluded.get(i);
+        if(toolIncluded.size() != 0) {
+            txt = (TextView) rootView.findViewById(R.id.recipe_tool_lists);
+            String printedTool = toolIncluded.get(0);
+            for (int i = 1; i < toolIncluded.size(); i++) {
+                printedTool = printedTool + " " + toolIncluded.get(i);
+            }
+            txt.setText(printedTool);
         }
-        txt.setText(printedTool);
-
+        
         txt = (TextView)rootView.findViewById(R.id.recipe_material_process);
         txt.setText(recipe.getProcess());
 
