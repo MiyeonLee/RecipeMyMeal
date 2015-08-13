@@ -13,9 +13,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import sep.architecture.recipemymeal.DownloadImage;
+import sep.architecture.recipemymeal.Material;
 import sep.architecture.recipemymeal.R;
 import sep.architecture.recipemymeal.Recipe;
+import sep.architecture.recipemymeal.Tool;
 
 /**
  * Created by josephine.lee on 2015-08-11.
@@ -27,6 +31,9 @@ public class ResultDetail extends Fragment {
     Button back;
     Recipe recipe;
 
+    ArrayList<Material> materialList;
+    ArrayList<Tool> toolList;
+
     public ResultDetail() {
     }
 
@@ -37,6 +44,8 @@ public class ResultDetail extends Fragment {
 
     public interface OnResultDetailFragmentSelectedListener {
         public void onBackSelected();
+        public ArrayList<Material> getMaterialList();
+        public ArrayList<Tool> getToolList();
     }
 
     @Override
@@ -52,6 +61,8 @@ public class ResultDetail extends Fragment {
             throw new ClassCastException(activity.toString()
                     + " must implement OnResultDetailFragmentSelectedListener");
         }
+        materialList = mCallback.getMaterialList();
+        toolList = mCallback.getToolList();
     }
 
     @Override
@@ -61,6 +72,48 @@ public class ResultDetail extends Fragment {
 
         TextView txt = (TextView)rootView.findViewById(R.id.recipe_title);
         txt.setText(recipe.getName());
+
+        ArrayList<String> materialIncluded = new ArrayList<String>();
+        int mHash = recipe.getMaterialHash();
+        for(int i = (materialList.size()-1); i >= 0 ; i--){
+            if(materialList.get(i).getBitposition() > mHash)
+            {
+                // do nothing
+            }else{
+                materialIncluded.add(materialList.get(i).getName());
+                mHash -= materialList.get(i).getBitposition();
+            }
+        }
+
+        txt = (TextView)rootView.findViewById(R.id.recipe_material_lists);
+        String printedMaterial = materialIncluded.get(0);
+        for(int i = 1; i < materialIncluded.size(); i++){
+            printedMaterial = printedMaterial + " " + materialIncluded.get(i);
+        }
+        txt.setText(printedMaterial);
+
+        ArrayList<String> toolIncluded = new ArrayList<String>();
+        int tHash = recipe.getToolHash();
+        for(int i = (toolList.size()-1); i >= 0 ; i--){
+            if(toolList.get(i).getBitposition() > tHash)
+            {
+                // do nothing
+            }else{
+                toolIncluded.add(toolList.get(i).getName());
+                mHash -= toolList.get(i).getBitposition();
+            }
+        }
+
+        txt = (TextView)rootView.findViewById(R.id.recipe_tool_lists);
+        String printedTool = toolIncluded.get(0);
+        for(int i = 1; i < toolIncluded.size(); i++){
+            printedTool.concat(" ");
+            printedTool.concat(toolIncluded.get(i));
+        }
+        txt.setText(printedTool);
+
+        txt = (TextView)rootView.findViewById(R.id.recipe_material_process);
+        txt.setText(recipe.getProcess());
 
         ImageView img = (ImageView) rootView.findViewById(R.id.thumbnail_food);
         if(recipe.getUrl() != null) {

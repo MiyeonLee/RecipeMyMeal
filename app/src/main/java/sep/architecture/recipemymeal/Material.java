@@ -20,6 +20,12 @@ public class Material implements Serializable{
     public boolean getCheckBoxState() {
         return CheckBoxState;
     }
+    public int getBitposition() {
+        return BitPosition;
+    }
+    public String getName() {
+        return Name;
+    }
 
     public void setCheckBoxState(boolean aState){
         CheckBoxState = aState;

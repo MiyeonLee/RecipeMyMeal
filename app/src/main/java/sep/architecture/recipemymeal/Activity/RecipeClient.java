@@ -104,6 +104,14 @@ public class RecipeClient extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
+    public ArrayList<Material> getMaterialList(){
+        return downloadedMaterialList;
+    }
+
+    public ArrayList<Tool> getToolList(){
+        return downloadedToolList;
+    }
+
     public void onNameSelected() {        // change fragment to name
         SearchName newFragment = new SearchName();
 

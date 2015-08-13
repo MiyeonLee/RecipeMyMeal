@@ -139,18 +139,10 @@ public class SearchMaterial extends Fragment {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(adapter.getNumberOfCheckedItem() == 1) {
-                    if (adapter.getCheckBoxState(position)) {
-                        adapter.setCheckBoxState(position, false);
-                    } else {
-                        // not possible
-                    }
-                }else {
-                    if (adapter.getCheckBoxState(position)) {
-                        adapter.setCheckBoxState(position, false);
-                    } else {
-                        adapter.setCheckBoxState(position, true);
-                    }
+                if (adapter.getCheckBoxState(position)) {
+                    adapter.setCheckBoxState(position, false);
+                } else {
+                    adapter.setCheckBoxState(position, true);
                 }
                 adapter.getView(position, view, parent);
             }
