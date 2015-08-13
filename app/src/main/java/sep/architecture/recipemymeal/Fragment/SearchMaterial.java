@@ -49,6 +49,13 @@ public class SearchMaterial extends Fragment {
     public SearchMaterial(ArrayList<Material> mList, ArrayList<Tool> tList) {
         materialList = mList;
         toolList = tList;
+
+        // clear checkbox state when creation
+        for(int i = 0; i < materialList.size(); i++)
+            materialList.get(i).setCheckBoxState(false);
+
+        for(int i = 0; i < toolList.size(); i++)
+            toolList.get(i).setCheckBoxState(false);
     }
 
     public interface OnSearchMaterialFragmentSelectedListener {

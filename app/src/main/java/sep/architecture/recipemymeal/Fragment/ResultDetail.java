@@ -112,7 +112,7 @@ public class ResultDetail extends Fragment {
             }
             txt.setText(printedTool);
         }
-        
+
         txt = (TextView)rootView.findViewById(R.id.recipe_material_process);
         txt.setText(recipe.getProcess());
 
